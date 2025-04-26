@@ -81,7 +81,7 @@ const loginUser = async (req, res) => {
       process.env.SECRET_KEY,
       {
         //hạn token tồn tại trong 1 tháng
-        expiresIn: "1m",
+        expiresIn: "1y",
       }
     );
 
@@ -100,7 +100,47 @@ const loginUser = async (req, res) => {
   }
 };
 
+const updateInfoUser = async (req, res) => {
+  try {
+    // lấy id từ param "/update/:id"
+    const id = req.params.id;
+    //Nếu không có id thì sẽ trả về
+    if (!id) {
+      return res.status(403).json({
+        msg: "Không đúng định dạng !",
+      });
+    }
+    //kiểm tra id từ database có bằng id truyền lên hay k
+    if (req.body.user._id.toString() !== id) {
+      return res.status(403).json({
+        msg: "Bạn không có quyền chỉnh sửa!",
+      });
+    }
+    //lấy thông tin mà user muốn sửa
+    const { p_fullName, p_emai } = req.body;
+    //kiểm tra user
+    const user = await User.findById(id);
+    if (p_fullName) {
+      user.fullName = p_fullName;
+    }
+    if (p_emai) {
+      user.email = p_emai;
+    }
+    //lưu thông tin vào database
+    await user.save();
+    return res.status(200).json({
+      msg: "Đã cập nhật thông tin!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Internal server error",
+      error,
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  updateInfoUser,
 };
