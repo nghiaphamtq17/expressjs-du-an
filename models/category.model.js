@@ -23,3 +23,10 @@ const CategorySchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Category", CategorySchema);
+
+// làm api bao gồm: 
+// danh sách toàn bộ các mục category
+// update date
+// delete
+// tìm kiếm category theo id
+// thêm 1 category mới
