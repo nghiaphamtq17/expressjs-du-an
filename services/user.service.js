@@ -139,8 +139,58 @@ const updateInfoUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    //kiểm tra id từ database có bằng id truyền lên hay k
+    if (req.body.user._id.toString() !== id) {
+      return res.status(403).json({
+        msg: "Bạn không có quyền chỉnh sửa!",
+      });
+    }
+
+    await User.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      msg: "Đã xoá tài khoản thành công!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Internal server error",
+      error,
+    });
+  }
+};
+
+const getAllUser = async (req,res) => {
+  try {
+
+    // const id = req.params.id;
+
+    // const data = await User.findById(id)
+
+    const listUsers = await User.find().sort({username: 1});
+
+    return res.status(200).json({
+      data: listUsers,
+      msg: 'Success!'
+    })
+
+  } catch (error) {
+    console.log('error', error);
+    
+    return res.status(500).json({
+      msg: "Internal server error",
+      error,
+    });
+  }
+}
+
 module.exports = {
   registerUser,
   loginUser,
   updateInfoUser,
+  deleteUser,
+  getAllUser
 };
