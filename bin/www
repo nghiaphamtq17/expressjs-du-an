@@ -18,8 +18,11 @@ app.set("port", port);
 
 console.log("port", port);
 
+const mongoUri = process.env.NODE_ENV === 'dev' ? process.env.MONGO_URI : process.env.MONGO_URI_2;
+
+
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(mongoUri)
   .then(() => console.log("Connect database success!"))
   .catch((err) => console.log("Fail connect", err));
 

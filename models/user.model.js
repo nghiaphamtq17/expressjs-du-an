@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     },
     username: {
       type: String,
-      require:true,
+      require: true,
       min: 10,
     },
     email: {
@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: ["admin", "editer", "user"],
       default: "user",
     },
   },
