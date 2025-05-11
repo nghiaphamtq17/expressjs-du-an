@@ -3,7 +3,7 @@ var router = express.Router();
 const {
   registerUser,
   loginUser,
-  updateInfoUser,
+  // updateInfoUser,
   deleteUser,
   getAllUser
 } = require("../services/user.service");
@@ -15,7 +15,7 @@ router.post("/register", async (req, res, next) => registerUser(req, res));
 
 router.post("/login", async (req, res, next) => loginUser(req, res));
 
-router.put("/update/:id", authMiddleware, updateInfoUser);
+// router.put("/update/:id", authMiddleware, await updateInfoUser);
 
 router.delete("/delete/:id", authMiddleware, deleteUser);
 

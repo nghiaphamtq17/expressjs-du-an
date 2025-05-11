@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const cloudinary = require('../config/cloudinary');
+const cloudinary = require('./cloudinary');
 const fs = require('fs');
 
 const router = express.Router();
@@ -16,9 +16,5 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 module.exports = router;
+
